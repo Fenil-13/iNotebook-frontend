@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import noteContext from '../context/notes/noteContext'
-export default function AddNote() {
+export default function AddNote(props) {
     const { addNote } = useContext(noteContext)
     const [note, setNote] = useState({ title: "", description: "", tag: "" })
     const handleAddNoteClick = (e) => {
@@ -8,6 +8,8 @@ export default function AddNote() {
         document.getElementById('title').value = ""
         document.getElementById('description').value = ""
         document.getElementById('tag').value = ""
+        document.getElementById("btnAdd").disabled = true;
+        props.showAlert("Add Note Successfully", "success")
         addNote(note.title, note.description, note.tag)
     }
     const onChange = (e) => {
@@ -34,7 +36,7 @@ export default function AddNote() {
                             name='tag' onChange={onChange} />
                     </div>
 
-                    <button disabled={
+                    <button id="btnAdd" name="btnAdd" disabled={
                         note.title.length < 5 ||
                         note.description.length < 5
                     } type="submit" className="btn btn-primary my-3" onClick={handleAddNoteClick}>Submit</button>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../context/notes/noteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
-export default function Notes() {
+export default function Notes(props) {
     const { notes, getNotes, editNote } = useContext(noteContext);
     const [currentNode, setCurrentNote] = useState({
         eid: "",
@@ -35,6 +35,7 @@ export default function Notes() {
             currentNode.edescription,
             currentNode.etag
         );
+        props.showAlert("Note Updated", "success")
         document.getElementById("etitle").value = "";
         document.getElementById("edescription").value = "";
         document.getElementById("etag").value = "";
@@ -45,7 +46,7 @@ export default function Notes() {
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert} />
             <button
                 type="button"
                 className="btn btn-primary d-none"
@@ -66,9 +67,7 @@ export default function Notes() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                                Edit Note
-                            </h5>
+                            <h5 className="modal-title" id="exampleModalLabel">  Edit Note </h5>
                             <button type="button" className="close" data-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -125,6 +124,8 @@ export default function Notes() {
                                 Close
                             </button>
                             <button
+                                name="btnUpdate"
+                                id="btnUpdate"
                                 disabled={
                                     currentNode.etitle.length < 5 ||
                                     currentNode.edescription.length < 5
@@ -146,7 +147,7 @@ export default function Notes() {
                 <div className="row">
                     {notes.map((note) => {
                         return (
-                            <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                            <NoteItem key={note._id} showAlert={props.showAlert} updateNote={updateNote} note={note} />
                         );
                     })}
                 </div>

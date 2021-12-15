@@ -16,7 +16,10 @@ export default function NoteItem(props) {
                             <i className="far fa-edit" onClick={() => {
                                 updateNote(note)
                             }}></i>
-                            <i className="fas fa-trash-alt" onClick={() => { deleteNote(note._id) }}></i>
+                            <i className="fas fa-trash-alt" onClick={() => {
+                                props.showAlert("Note Deleted", "success")
+                                deleteNote(note._id)
+                            }}></i>
                         </div>
 
                     </div>

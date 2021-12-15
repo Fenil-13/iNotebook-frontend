@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-export default function Login() {
+export default function Login(props) {
     const navigate = useNavigate();
     const host = "http://localhost:1353"
     const [credentials, setCredentials] = useState({ email: "", password: "" })
@@ -17,6 +17,8 @@ export default function Login() {
             response = await response.json()
             localStorage.setItem('authToken', response.authToken)
             navigate('/');
+        } else {
+            props.showAlert("Invalid Credentials", "danger")
         }
     }
     const onChange = (e) => {
@@ -26,19 +28,21 @@ export default function Login() {
 
     return (
         <>
-            <div className="container text-center"></div>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" name="email" onChange={onChange} id="email" aria-describedby="emailHelp" />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" onChange={onChange} name='password' id="password" />
-                </div>
-                <button type="submit" className="btn btn-primary" >Login</button>
-            </form>
+            <div className="container my-3">
+                <h2 className=''>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email address</label>
+                        <input type="email" className="form-control" name="email" onChange={onChange} id="email" aria-describedby="emailHelp" />
+                        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input type="password" className="form-control" onChange={onChange} name='password' id="password" />
+                    </div>
+                    <button type="submit" className="btn btn-primary" >Login</button>
+                </form>
+            </div>
         </>
     )
 }

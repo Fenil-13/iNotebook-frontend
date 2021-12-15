@@ -21,12 +21,12 @@ export default function AddNote() {
                     <div className="form-group my-2">
                         <label htmlFor="title">Title</label>
                         <input type="text" className="form-control" id="title"
-                            name='title' onChange={onChange} />
+                            name='title' onChange={onChange} required minLength={5} />
                     </div>
                     <div className="form-group my-2">
                         <label htmlFor="description">Description</label>
                         <input type="text" className="form-control" id="description"
-                            name='description' onChange={onChange} />
+                            name='description' onChange={onChange} required minLength={5} />
                     </div>
                     <div className="form-group my-2">
                         <label htmlFor="tag">Tag</label>
@@ -34,7 +34,10 @@ export default function AddNote() {
                             name='tag' onChange={onChange} />
                     </div>
 
-                    <button type="submit" className="btn btn-primary my-3" onClick={handleAddNoteClick}>Submit</button>
+                    <button disabled={
+                        note.title.length < 5 ||
+                        note.description.length < 5
+                    } type="submit" className="btn btn-primary my-3" onClick={handleAddNoteClick}>Submit</button>
                 </form>
             </div>
         </>

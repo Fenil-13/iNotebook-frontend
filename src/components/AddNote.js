@@ -5,6 +5,9 @@ export default function AddNote() {
     const [note, setNote] = useState({ title: "", description: "", tag: "" })
     const handleAddNoteClick = (e) => {
         e.preventDefault()
+        document.getElementById('title').value = ""
+        document.getElementById('description').value = ""
+        document.getElementById('tag').value = ""
         addNote(note.title, note.description, note.tag)
     }
     const onChange = (e) => {

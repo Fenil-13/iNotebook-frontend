@@ -1,6 +1,6 @@
 import './App.css';
-import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from './components/Home';
 import About from './components/About';
 import Navbar from './components/Navbar';
@@ -9,6 +9,7 @@ import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
 function App() {
+  const navigate = useNavigate()
   const [alert, setAlert] = useState(null)
   const showAlert = (message, type) => {
     setAlert({
@@ -19,6 +20,11 @@ function App() {
       setAlert(null)
     }, 2000);
   }
+  useEffect(() => {
+    if (!localStorage.getItem('authToken')) {
+      navigate('/login')
+    }
+  }, [])
   return (
     <>
       <NoteState>

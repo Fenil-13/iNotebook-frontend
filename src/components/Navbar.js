@@ -20,6 +20,8 @@ export default function Navbar() {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
                         </ul>
+                        <Link type="button" to="/login" className="btn btn-primary btn-sm mx-2">Login</Link>
+                        <Link type="button" to="/signup" className="btn btn-secondary btn-sm mx-2">Sign Up</Link>
                     </div>
                 </div>
             </nav>
